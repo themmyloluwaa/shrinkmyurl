@@ -24,13 +24,9 @@ const server = new GraphQLServer({
     },
   }),
   context: async (sConfig) => {
-    console.log(sConfig);
-    const data = {
-      sConfig,
-      prisma,
-    };
+    sConfig.prisma = prisma;
 
-    return data;
+    return sConfig;
   },
 });
 
