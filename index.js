@@ -7,12 +7,11 @@ const bodyParser = require("body-parser");
 
 const prisma = new PrismaClient();
 
-
 const options = {
   port: process.env.PORT || 4000,
   endpoint: "/api",
   subscriptions: "/subscriptions",
-  playground: "/playground",
+  playground: "/graphiql",
 };
 
 const server = new GraphQLServer({
@@ -25,16 +24,15 @@ const server = new GraphQLServer({
     },
   }),
   context: async (sConfig) => {
+    console.log(sConfig);
     const data = {
       sConfig,
       prisma,
     };
-    
+
     return data;
   },
 });
-
-
 
 server.start(options, ({ port, playground, ...rest }) => {
   console.log(`🚀 Server ready at: http://localhost:${port}${playground}\n⭐️`);
