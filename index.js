@@ -1,9 +1,9 @@
 const { GraphQLServer } = require("graphql-yoga");
-const { makeSchema } = require("@nexus/schema");
+const { makeSchema } = require("nexus");
 const { nexusPrisma } = require("nexus-plugin-prisma");
 const { PrismaClient } = require("@prisma/client");
 const types = require("./src/types");
-const bodyParser = require("body-parser");
+const BodyParser = require("body-parser");
 
 const prisma = new PrismaClient();
 
@@ -33,6 +33,9 @@ const server = new GraphQLServer({
     return data;
   },
 });
+
+server.express.use(BodyParser.urlencoded({ extended: false }));
+server.express.use(BodyParser.json());
 
 server.start(options, ({ port, playground, ...rest }) => {
   console.log(`🚀 Server ready at: http://localhost:${port}${playground}\n⭐️`);

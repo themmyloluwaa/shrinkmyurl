@@ -7,7 +7,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js --port $PORT",
     "postinstall": "npm -s run generate",
-    "generate": "prisma generate"
+    "generate": "prisma generate --schema ./src/prisma/schema.prisma"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/themmyloluwaa/shrinkmyurl#readme",
   "dependencies": {
-    "@prisma/client": "^2.19.0",
     "body-parser": "^1.19.0",
     "graphql": "^15.5.0",
     "graphql-yoga": "^1.18.3",
