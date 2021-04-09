@@ -1,0 +1,33 @@
+{
+  "name": "shrinkmyurl",
+  "version": "1.0.0",
+  "description": "An API that shrinks any url passed into it using nodejs and graphql",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js --port $PORT",
+    "postinstall": "npm -s run generate",
+    "generate": "prisma generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themmyloluwaa/shrinkmyurl.git"
+  },
+  "author": "Temiloluwa Philip Ojo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/themmyloluwaa/shrinkmyurl/issues"
+  },
+  "homepage": "https://github.com/themmyloluwaa/shrinkmyurl#readme",
+  "dependencies": {
+    "@prisma/client": "^2.19.0",
+    "graphql": "^15.5.0",
+    "graphql-yoga": "^1.18.3",
+    "nexus": "^1.0.0",
+    "nexus-plugin-prisma": "^0.33.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prisma": "^2.20.1"
+  }
+}
