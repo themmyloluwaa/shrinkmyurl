@@ -1,7 +1,19 @@
 const { nanoid } = require("nanoid");
 
-const generateURL = async () => {
-  return nanoid(6);
+const generateURL = async (db) => {
+  let isInValid = true;
+  let urlGenerated = "";
+
+  while (isInValid) {
+    urlGenerated = nanoid(6);
+    isInValid = await db.uRLSchema.findUnique({
+      where: {
+        shortURL: urlGenerated,
+      },
+    });
+  }
+
+  return urlGenerated;
 };
 const urlValidator = (url) =>
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(

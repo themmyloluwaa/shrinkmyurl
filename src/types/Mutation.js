@@ -9,7 +9,6 @@ const Mutation = mutationType({
     t.field("health", {
       type: "Int",
       resolve: async (parent, args, ctx) => {
-        console.log(ctx);
         return 200;
       },
     });
@@ -24,31 +23,21 @@ const Mutation = mutationType({
           const isURLValid = urlValidator(args.url);
 
           if (!isURLValid) {
-            throw new Error("You must submit a valid url");
+            throw new Error("You must submit a valid url.");
           }
           const hostname = ctx.request.headers.host;
 
-          let isInValid = true;
-          let urlGenerated = "";
-
-          while (isInValid) {
-            urlGenerated = await generateURL();
-            isInValid = await prisma.uRLSchema.findUnique({
-              where: {
-                shortURL: urlGenerated,
-              },
-            });
-          }
-          const saveURL = await prisma.uRLSchema.create({
+          const generatedURL = await generateURL(prisma);
+          const savedURL = await prisma.uRLSchema.create({
             data: {
               fullURL: args.url,
-              shortURL: "KDWVph",
+              shortURL: generatedURL,
               visits: 0,
             },
           });
 
-          if (saveURL) {
-            return `${hostname}/${urlGenerated}`;
+          if (savedURL) {
+            return `${hostname}/${generatedURL}`;
           }
         } catch (err) {
           console.log(err);
