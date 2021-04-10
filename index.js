@@ -1,6 +1,5 @@
 const { GraphQLServer } = require("graphql-yoga");
 const { makeSchema } = require("nexus");
-const { nexusPrisma } = require("nexus-plugin-prisma");
 const { PrismaClient } = require("@prisma/client");
 const types = require("./src/types");
 const BodyParser = require("body-parser");
@@ -17,7 +16,7 @@ const options = {
 const server = new GraphQLServer({
   schema: makeSchema({
     types,
-    plugins: [nexusPrisma()],
+    plugins: [],
     outputs: {
       schema: __dirname + "/src/generated/schema.graphql",
       typegen: __dirname + "/src/generated/nexus.ts",

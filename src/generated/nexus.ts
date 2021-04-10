@@ -7,12 +7,7 @@
 
 
 
-declare global {
-  interface NexusGenCustomOutputProperties<TypeName extends string> {
-    model: NexusPrisma<TypeName, 'model'>
-    crud: any
-  }
-}
+
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -30,18 +25,17 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
-  DateTime: any
 }
 
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   URLSchema: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    fullURL: string; // String!
-    id: number; // Int!
-    shortURL: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt?: string | null; // String
+    fullURL?: string | null; // String
+    id?: number | null; // Int
+    shortURL?: string | null; // String
+    updatedAt?: string | null; // String
   }
 }
 
@@ -64,11 +58,11 @@ export interface NexusGenFieldTypes {
     health: number | null; // Int
   }
   URLSchema: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    fullURL: string; // String!
-    id: number; // Int!
-    shortURL: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt: string | null; // String
+    fullURL: string | null; // String
+    id: number | null; // Int
+    shortURL: string | null; // String
+    updatedAt: string | null; // String
   }
 }
 
@@ -81,11 +75,11 @@ export interface NexusGenFieldTypeNames {
     health: 'Int'
   }
   URLSchema: { // field return type name
-    createdAt: 'DateTime'
+    createdAt: 'String'
     fullURL: 'String'
     id: 'Int'
     shortURL: 'String'
-    updatedAt: 'DateTime'
+    updatedAt: 'String'
   }
 }
 

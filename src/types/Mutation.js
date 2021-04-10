@@ -1,4 +1,4 @@
-const { intArg, mutationType, stringArg, nonNull } = require("nexus");
+const { mutationType, stringArg, nonNull } = require("nexus");
 const { generateURL } = require("../utils/generateURL");
 
 const Mutation = mutationType({
@@ -19,7 +19,6 @@ const Mutation = mutationType({
       resolve: async (parent, args, ctx) => {
         const hostname = ctx.request.headers.host;
         const urlGenerated = await generateURL();
-
         return `${hostname}/${urlGenerated}`;
       },
     });

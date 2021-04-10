@@ -2,8 +2,6 @@
 ### Do not make changes to this file directly
 
 
-scalar DateTime
-
 type Mutation {
   health: Int
   shortenURL(url: String!): String
@@ -14,9 +12,9 @@ type Query {
 }
 
 type URLSchema {
-  createdAt: DateTime!
-  fullURL: String!
-  id: Int!
-  shortURL: String!
-  updatedAt: DateTime!
+  createdAt: String
+  fullURL: String @deprecated(reason: "The full url that needs to be shrinked")
+  id: Int
+  shortURL: String @deprecated(reason: "The full url that needs to be shrinked")
+  updatedAt: String
 }
