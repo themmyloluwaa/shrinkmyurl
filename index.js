@@ -29,9 +29,37 @@ const server = new GraphQLServer({
   },
 });
 
-server.express.use(BodyParser.urlencoded({ extended: false }));
-server.express.use(BodyParser.json());
+// server.express.use(BodyParser.urlencoded({ extended: false }));
+// server.express.use(BodyParser.json());
 
+server.express.get("/:shrinkedURL", async (req, res, next) => {
+  try {
+    const shrinkedURL = await prisma.uRLSchema.findFirst({
+      where: {
+        shortURL: req.params.shrinkedURL,
+      },
+    });
+
+    if (!shrinkedURL) {
+      return res.sendStatus(404);
+    }
+    const newURLVisitsValue = shrinkedURL.visits + 1;
+
+    await prisma.uRLSchema.update({
+      where: {
+        id: shrinkedURL.id,
+      },
+      data: {
+        visits: newURLVisitsValue,
+      },
+    });
+
+    return res.redirect(shrinkedURL.fullURL);
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(404);
+  }
+});
 server.start(options, ({ port, playground, ...rest }) => {
   console.log(`🚀 Server ready at: http://localhost:${port}${playground}\n⭐️`);
 });
