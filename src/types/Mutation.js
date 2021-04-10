@@ -27,6 +27,14 @@ const Mutation = mutationType({
           }
           const hostname = ctx.request.headers.host;
 
+          const URLExist = await prisma.uRLSchema.findFirst({
+            where: { fullURL: args.url },
+          });
+
+          if (URLExist) {
+            return `${hostname}/${URLExist.shortURL}`;
+          }
+
           const generatedURL = await generateURL(prisma);
           const savedURL = await prisma.uRLSchema.create({
             data: {
