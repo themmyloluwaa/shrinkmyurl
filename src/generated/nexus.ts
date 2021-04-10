@@ -58,6 +58,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     health: number | null; // Int
+    shortenURL: string | null; // String
   }
   Query: { // field return type
     health: number | null; // Int
@@ -74,6 +75,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     health: 'Int'
+    shortenURL: 'String'
   }
   Query: { // field return type name
     health: 'Int'
@@ -88,6 +90,11 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    shortenURL: { // args
+      url: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

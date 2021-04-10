@@ -1,4 +1,4 @@
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 
 const generateURL = async () => {
   return nanoid(6);

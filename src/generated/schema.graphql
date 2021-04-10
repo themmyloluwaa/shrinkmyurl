@@ -6,6 +6,7 @@ scalar DateTime
 
 type Mutation {
   health: Int
+  shortenURL(url: String!): String
 }
 
 type Query {
