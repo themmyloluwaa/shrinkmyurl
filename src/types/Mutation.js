@@ -1,9 +1,6 @@
 const { mutationType, stringArg, nonNull } = require("nexus");
 const { generateURL, urlValidator } = require("../utils/helpers");
-
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
-
+  
 const Mutation = mutationType({
   definition(t) {
     t.field("health", {
@@ -27,7 +24,7 @@ const Mutation = mutationType({
           }
           const hostname = ctx.request.headers.host;
 
-          const URLExist = await prisma.uRLSchema.findFirst({
+          const URLExist = await ctx.db.uRLSchema.findFirst({
             where: { fullURL: args.url },
           });
 
@@ -35,8 +32,8 @@ const Mutation = mutationType({
             return `${hostname}/${URLExist.shortURL}`;
           }
 
-          const generatedURL = await generateURL(prisma);
-          const savedURL = await prisma.uRLSchema.create({
+          const generatedURL = await generateURL(ctx.db);
+          const savedURL = await ctx.db.uRLSchema.create({
             data: {
               fullURL: args.url,
               shortURL: generatedURL,
@@ -49,7 +46,7 @@ const Mutation = mutationType({
           }
         } catch (err) {
           console.log(err);
-          throw new Error("An error occured, please try again.");
+          return err;
         }
       },
     });

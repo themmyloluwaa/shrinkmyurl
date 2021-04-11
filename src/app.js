@@ -31,7 +31,7 @@ const app = new GraphQLServer({
 app.express.get("/:shrinkedURL", async (req, res, next) => {
   try {
     if (req.params.shrinkedURL === options.playground.replace("/", "")) {
-      next();
+      return next();
     }
 
     const shrinkedURL = await prisma.uRLSchema.findFirst({
@@ -58,6 +58,7 @@ app.express.get("/:shrinkedURL", async (req, res, next) => {
     // }
   } catch (err) {
     console.log(err);
+    console.log("warning");
     return res.sendStatus(404);
   }
 });
@@ -69,4 +70,7 @@ const server = () => {
   });
 };
 
-module.exports = server;
+module.exports = {
+  prisma,
+  server,
+};
