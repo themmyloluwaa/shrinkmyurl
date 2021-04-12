@@ -1,15 +1,16 @@
 const { GraphQLServer } = require("graphql-yoga");
 const { makeSchema } = require("nexus");
 const { PrismaClient } = require("@prisma/client");
+const { formatError } = require("apollo-errors");
 const types = require("./types");
 
 const prisma = new PrismaClient();
 
 const options = {
-  //   port: process.env.NODE_ENV === "test" ? 0 : process.env.PORT,
   port: process.env.PORT || 4000,
   endpoint: "/api",
   playground: "/graphiql",
+  formatError,
 };
 
 const app = new GraphQLServer({

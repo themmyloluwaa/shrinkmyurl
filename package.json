@@ -8,7 +8,7 @@
     "start": "node index.js --port $PORT",
     "postinstall": "npm -s run generate",
     "generate": "prisma generate --schema ./src/prisma/schema.prisma",
-    "test": "NODE_ENV=test PORT=5001 jest --watchAll "
+    "test": "NODE_ENV=test PORT=5001 jest "
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.14",
     "@prisma/client": "^2.19.0",
+    "apollo-errors": "^1.9.0",
     "body-parser": "^1.19.0",
     "graphql-request": "^3.4.0",
     "graphql-yoga": "^1.18.3",

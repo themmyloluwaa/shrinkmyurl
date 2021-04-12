@@ -1,6 +1,11 @@
 const { mutationType, stringArg, nonNull } = require("nexus");
 const { generateURL, urlValidator } = require("../utils/helpers");
-  
+const { createError } = require("apollo-errors");
+
+const InValidURLError = createError("Invalid URL", {
+  message: "The URL provided is invalid, please check and try again",
+});
+
 const Mutation = mutationType({
   definition(t) {
     t.field("health", {
@@ -20,7 +25,7 @@ const Mutation = mutationType({
           const isURLValid = urlValidator(args.url);
 
           if (!isURLValid) {
-            throw new Error("You must submit a valid url.");
+            throw new InValidURLError();
           }
           const hostname = ctx.request.headers.host;
 
@@ -55,4 +60,5 @@ const Mutation = mutationType({
 
 module.exports = {
   Mutation,
+  InValidURLError,
 };

@@ -1,5 +1,6 @@
 const { request } = require("graphql-request");
 const { prisma, server } = require("../app");
+const { InValidURLError } = require("../types/Mutation");
 
 let getHost = () => "";
 
@@ -26,9 +27,12 @@ mutation {
 describe("Tests for the shrinkmyurl API", () => {
   beforeAll(async (done) => {
     app = await server();
-    await prisma.uRLSchema.deleteMany();
     const { port } = app.address();
     getHost = () => `http://127.0.0.1:${port}/api`;
+    await prisma.uRLSchema
+      .deleteMany()
+      .then((res) => res)
+      .catch((err) => console.log(err));
 
     await done();
   });
@@ -48,6 +52,12 @@ describe("Tests for the shrinkmyurl API", () => {
     await done();
   });
 
+  it("Does not shrink the url", async (done) => {
+    await expect(() =>
+      request(getHost(), badUrlQuery).catch((e) => e)
+    ).rejects.toThrow(new InValidURLError());
+    await done();
+  });
   afterAll(async (done) => {
     await app.close(done());
     await prisma.$disconnect();
