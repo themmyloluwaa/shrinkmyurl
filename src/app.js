@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const { formatError } = require("apollo-errors");
 const types = require("./types");
 
-const prisma = new PrismaClient();
+const prisma = require("./utils/dbClient");
 
 const options = {
   port: process.env.PORT || 4000,

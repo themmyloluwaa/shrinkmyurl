@@ -53,11 +53,12 @@ describe("Tests for the shrinkmyurl API", () => {
   });
 
   it("Does not shrink the url", async (done) => {
-    await expect(() =>
+    await expect(
       request(getHost(), badUrlQuery).catch((e) => e)
-    ).rejects.toThrow(new InValidURLError());
+    ).resolves.toThrow(new InValidURLError());
     await done();
   });
+
   afterAll(async (done) => {
     await app.close(done());
     await prisma.$disconnect();
