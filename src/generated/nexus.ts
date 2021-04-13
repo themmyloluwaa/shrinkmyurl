@@ -28,7 +28,6 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Mutation: {};
   Query: {};
   URLSchema: { // root type
     createdAt?: string | null; // String
@@ -50,10 +49,6 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Mutation: { // field return type
-    health: number | null; // Int
-    shortenURL: string | null; // String
-  }
   Query: { // field return type
     health: number | null; // Int
     shortenURL: string | null; // String
@@ -68,10 +63,6 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
-  Mutation: { // field return type name
-    health: 'Int'
-    shortenURL: 'String'
-  }
   Query: { // field return type name
     health: 'Int'
     shortenURL: 'String'
@@ -86,11 +77,6 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
-  Mutation: {
-    shortenURL: { // args
-      url: string; // String!
-    }
-  }
   Query: {
     shortenURL: { // args
       url: string; // String!
