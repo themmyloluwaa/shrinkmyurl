@@ -24,7 +24,6 @@ const Query = queryType({
           if (!isURLValid) {
             throw new InValidURLError();
           }
-          const hostname = ctx.request.headers.host;
 
           // If a user has shortened a url before, find it and return.
           // The advantage of this is it saves the db from being populated
@@ -34,7 +33,7 @@ const Query = queryType({
           });
 
           if (URLExist) {
-            return `${hostname}/${URLExist.shortURL}`;
+            return `${process.env.ORIGIN_URL}/${URLExist.shortURL}`;
           }
 
           // generate a new 6 length random string
@@ -50,7 +49,7 @@ const Query = queryType({
           });
           // if the url was saved. Return the required format for the url
           if (savedURL) {
-            return `${hostname}/${generatedURL}`;
+            return `${process.env.ORIGIN_URL}/${URLExist.shortURL}`;
           } else {
             // Else, give the user a feedback
             throw new ErrorOccured();
