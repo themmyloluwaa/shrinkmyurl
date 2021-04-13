@@ -1,5 +1,9 @@
 # shrinkmyurl
-<<<<<<< HEAD
-=======
+
 A url shrinker API built using GraphQL, Prisma and Postgres
->>>>>>> 609d897ea5f9ee319464b776fe6ae92ec4d52035
+
+Graphql Style Used: Code First Approach.
+
+I discuss some of the benefits of a code first approach in this [article](https://learn.vonage.com/blog/2021/02/25/building-a-realtime-graphql-chat-application-with-sms-notifications/).
+
+This API was deployed on vercel.

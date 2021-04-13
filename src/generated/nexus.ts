@@ -56,6 +56,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     health: number | null; // Int
+    shortenURL: string | null; // String
   }
   URLSchema: { // field return type
     createdAt: string | null; // String
@@ -73,6 +74,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     health: 'Int'
+    shortenURL: 'String'
   }
   URLSchema: { // field return type name
     createdAt: 'String'
@@ -85,6 +87,11 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    shortenURL: { // args
+      url: string; // String!
+    }
+  }
+  Query: {
     shortenURL: { // args
       url: string; // String!
     }

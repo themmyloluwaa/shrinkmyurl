@@ -6,6 +6,7 @@ const types = require("./types");
 
 const prisma = require("./utils/dbClient");
 
+// define options for the graphql error
 const options = {
   port: process.env.PORT || 4000,
   endpoint: "/api",
@@ -13,6 +14,7 @@ const options = {
   formatError,
 };
 
+// create a new server and define necessary arguments
 const app = new GraphQLServer({
   schema: makeSchema({
     types,
@@ -29,12 +31,15 @@ const app = new GraphQLServer({
   },
 });
 
+// redirection endpoint
 app.express.get("/:shrinkedURL", async (req, res, next) => {
   try {
+    // prevent playground endpoint redirects
     if (req.params.shrinkedURL === options.playground.replace("/", "")) {
       return next();
     }
 
+    // retrieve the full url
     const shrinkedURL = await prisma.uRLSchema.findFirst({
       where: {
         shortURL: req.params.shrinkedURL,
@@ -44,6 +49,7 @@ app.express.get("/:shrinkedURL", async (req, res, next) => {
     if (!shrinkedURL) {
       return res.sendStatus(404);
     }
+    // increase visits count for analytics
     const newURLVisitsValue = shrinkedURL.visits + 1;
 
     await prisma.uRLSchema.update({
@@ -55,11 +61,11 @@ app.express.get("/:shrinkedURL", async (req, res, next) => {
       },
     });
 
+    // redirect the user to the desired location
     return res.redirect(shrinkedURL.fullURL);
     // }
   } catch (err) {
     console.log(err);
-    console.log("warning");
     return res.sendStatus(404);
   }
 });

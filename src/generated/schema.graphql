@@ -9,6 +9,7 @@ type Mutation {
 
 type Query {
   health: Int
+  shortenURL(url: String!): String
 }
 
 type URLSchema {

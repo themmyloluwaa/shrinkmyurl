@@ -22,6 +22,8 @@ const Mutation = mutationType({
       },
       resolve: async (parent, args, ctx) => {
         try {
+
+          
           const isURLValid = urlValidator(args.url);
 
           if (!isURLValid) {
